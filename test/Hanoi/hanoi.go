@@ -6,20 +6,21 @@ import (
 )
 
 // go run hanoi.go -level=3
+
 func main() {
 	level := flag.Int("level", 3, "level=3, level > 0")
 	flag.Parse()
 
 	fmt.Println("Hanoi by recursive(", *level, "):")
-	Hanoi_Recursive(*level, "A", "B", "C")
+	HanoiRecursive(*level, "A", "B", "C")
 
-	// fmt.Println("")
-	// fmt.Println("Hanoi by non-recursive:")
-	// Hanoi_Nonrecursive(*level, "A", "B", "C")
+	fmt.Println("")
+	fmt.Println("Hanoi by non-recursive:")
+	HanoiNonrecursive(*level, "A", "B", "C")
 }
 
-// Recursive
-func Hanoi_Recursive(level int, src, aux, dist string) {
+// HanoiRecursive recursive
+func HanoiRecursive(level int, src, aux, dist string) {
 	if level < 1 {
 		return
 	} else if level == 1 {
@@ -27,12 +28,12 @@ func Hanoi_Recursive(level int, src, aux, dist string) {
 		return
 	}
 
-	Hanoi_Recursive(level-1, src, dist, aux)
-	Hanoi_Recursive(1, src, aux, dist)
-	Hanoi_Recursive(level-1, aux, src, dist)
+	HanoiRecursive(level-1, src, dist, aux)
+	HanoiRecursive(1, src, aux, dist)
+	HanoiRecursive(level-1, aux, src, dist)
 }
 
-// Non-Recursive
+// StackItem for Non-Recursive
 type StackItem struct {
 	level int
 	src   string
@@ -41,8 +42,8 @@ type StackItem struct {
 	pnext *StackItem
 }
 
-// Non-recursive
-func Hanoi_Nonrecursive(level int, src, aux, dist string) {
+// HanoiNonrecursive Non-recursive
+func HanoiNonrecursive(level int, src, aux, dist string) {
 	if level < 1 {
 		fmt.Println("Hanoi, input level is ERROR!")
 		return
